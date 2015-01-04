@@ -1,0 +1,25 @@
+#N canvas 358 125 450 300 10;
+#X obj 136 154 textfile;
+#X obj 136 178 print list;
+#X obj 136 107 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X msg 136 129 read ./test.scm;
+#X obj 262 98 scheme;
+#X obj 224 60 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 118 23 load /Users/etienne/Dev/Pd_Scheme/Demo/test.scm;
+#X obj 285 184 print;
+#X obj 252 168 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
+-1 -1;
+#X obj 320 162 print;
+#X floatatom 322 74 5 0 0 0 - - -;
+#X obj 326 116 list trim;
+#X connect 0 0 1 0;
+#X connect 2 0 3 0;
+#X connect 3 0 0 0;
+#X connect 4 0 7 0;
+#X connect 4 0 8 0;
+#X connect 4 1 11 0;
+#X connect 5 0 4 0;
+#X connect 6 0 4 0;
+#X connect 11 0 9 0;

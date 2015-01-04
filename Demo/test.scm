@@ -1,0 +1,1 @@
+(define (bang) (outlet "asdf" 2.7 1.23 2))
