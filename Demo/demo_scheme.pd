@@ -1,4 +1,4 @@
-#N canvas 15 373 450 300 10;
+#N canvas -663 267 450 300 10;
 #X obj 136 154 textfile;
 #X obj 136 178 print list;
 #X obj 136 107 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
@@ -15,6 +15,7 @@
 #X obj 326 116 list trim;
 #X msg 118 23 load /Users/viking/Dev/Pd_Scheme/Demo/test.scm;
 #X msg 52 41 call func 1 "sdc";
+#X msg 29 78 call funcc 1 "sdc";
 #X connect 0 0 1 0;
 #X connect 2 0 3 0;
 #X connect 3 0 0 0;
@@ -24,3 +25,4 @@
 #X connect 10 0 8 0;
 #X connect 11 0 4 0;
 #X connect 12 0 4 0;
+#X connect 13 0 4 0;

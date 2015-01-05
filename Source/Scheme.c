@@ -24,41 +24,27 @@ typedef struct _scheme {
 static s7_pointer pd_atom_to_s7_value(s7_scheme * s7, t_atom * atom)
 {
     switch(atom->a_type){
-            
-        case A_FLOAT:
-            post("pd_atom_to_s7_value float");
-            return s7_make_real(s7, atom_getfloat(atom));
-            
-        case A_SYMBOL:
-            post("pd_atom_to_s7_value symbol");
-            return s7_make_string(s7, atom_getsymbol(atom)->s_name);
-            
-        default:
-            error("pd atom to s7 value: unexpected atom type %d", atom->a_type);
-            return s7_nil(s7);
+        case A_FLOAT: return s7_make_real(s7, atom_getfloat(atom));
+        case A_SYMBOL: return s7_make_string(s7, atom_getsymbol(atom)->s_name);
+        default: error("pd atom to s7 value: unexpected atom type %d", atom->a_type);
     }
+    return s7_nil(s7);
 }
 
 static void s7_to_pd_output(s7_scheme *sc, unsigned char c, s7_pointer port)
 {
-    #define S7_OUT_BUF_SIZE 80
+    #define S7_OUT_BUF_SIZE 1024
     static char text[S7_OUT_BUF_SIZE];
     static int char_index = 0;
     text[char_index] = (char)c;
     char_index++;
     
-    if (char_index > S7_OUT_BUF_SIZE - 1)
-    {
-        post(text);
-        memset(text, ' ', S7_OUT_BUF_SIZE * sizeof(char));
+    if (char_index > S7_OUT_BUF_SIZE - 1 || ((char_index > 0) && (text[char_index - 1] == '\n'))) {
+        poststring(text);
+        memset(text, 0, S7_OUT_BUF_SIZE * sizeof(char));
         char_index = 0;
     }
 }
-
-/*static void s7_to_pd_error(s7_scheme *sc, unsigned char c, s7_pointer port)
-{
-    error(c);
-}*/
 
 static s7_pointer s7_to_pd_outlet(s7_scheme *s7, s7_pointer args)
 {
@@ -90,11 +76,10 @@ static s7_pointer s7_to_pd_outlet(s7_scheme *s7, s7_pointer args)
 
 void scheme_bang(t_scheme *x)
 {
-    // call bang handler on script
     if (s7_is_defined(x->s7, "bang")){
         s7_call(x->s7, s7_name_to_value(x->s7, "bang"), s7_nil(x->s7));
     } else {
-        error("script does not defines [bang]");
+        error("scheme script call: function [bang] not defined");
     }
 }
 
@@ -107,15 +92,13 @@ void scheme_load(t_scheme *x, t_symbol *s, int argc, t_atom *argv)
 
 void scheme_call(t_scheme *x, t_symbol *s, int argc, t_atom *argv)
 {
-    
-    
     if (argv->a_type != A_SYMBOL) {
-        error("s7 script call: first arg should be a symbol");
+        error("scheme script call: first arg should be a symbol");
         return;
     }
     
     if (!s7_is_defined(x->s7, atom_getsymbol(argv)->s_name)) {
-        error("s7 script call: symbol %s not defined", atom_getsymbol(argv)->s_name);
+        error("scheme script call: function [%s] not defined", atom_getsymbol(argv)->s_name);
         return;
     }
     
