@@ -7,8 +7,8 @@
 //
 #include <stdlib.h>
 #include <string.h>
-#include "../Lib/m_pd.h"
-#include "../s7/s7.h"
+#include "m_pd.h"
+#include "s7.h"
 
 #define S7_PD_OBJECT_NAME "*pd-object*"
 

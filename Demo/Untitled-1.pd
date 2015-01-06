@@ -1,9 +1,0 @@
-#N canvas 358 125 450 300 10;
-#X obj 136 154 textfile;
-#X obj 136 178 print list;
-#X obj 136 107 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X msg 136 129 read ./test.scm;
-#X connect 0 0 1 0;
-#X connect 2 0 3 0;
-#X connect 3 0 0 0;

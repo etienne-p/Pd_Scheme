@@ -1,0 +1,26 @@
+#N canvas -861 338 450 300 10;
+#X obj 50 236 scheme;
+#X obj 50 264 print;
+#X obj 52 34 openpanel;
+#X obj 52 11 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 26 65 load;
+#X obj 26 89 list append;
+#X obj 26 114 list trim;
+#X obj 172 90 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X msg 171 186 call my-function "test" 1 2.2;
+#X text 80 8 open a scheme script;
+#X text 170 147 call script's "my-function" function;
+#X text 171 162 with 3 arguments;
+#X text 170 71 call script's "bang" function;
+#X text 94 263 print script output;
+#X connect 0 0 1 0;
+#X connect 2 0 5 1;
+#X connect 2 0 4 0;
+#X connect 3 0 2 0;
+#X connect 4 0 5 0;
+#X connect 5 0 6 0;
+#X connect 6 0 0 0;
+#X connect 7 0 0 0;
+#X connect 8 0 0 0;
